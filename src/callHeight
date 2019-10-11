@@ -1,0 +1,15 @@
+var cellHeight = this.cellHeight,
+        // Do we need to write a DIV into the cell (See comments in _writeDiv())
+        writeDiv = this._writeDiv(cellHeight),
+        
+        nowrap = !this.wrapCells && (!isc.Browser.isIE || isc.Browser.isStrict), 
+        skipNOBR = this.wrapCells || writeDiv || nowrap,
+        // If preserveWhitespace is true, use the special 'pre' / 'pre-wrap' settings
+        // to retain multiple spaces, etc
+        whitespaceCSS = this.preserveWhitespace ?
+                    (this.wrapCells ? ";white-space:pre-wrap;" : ";white-space:pre;") :
+                    (!nowrap ? null : ";white-space:nowrap;"),
+        cellWrapHTML = (skipNOBR ? "" : "<NOBR>"),
+        cellWrapHTMLClose = (!this.closeNOBRs || skipNOBR ? "" : "</NOBR>")
+	;
+    var singleCells = 0;
